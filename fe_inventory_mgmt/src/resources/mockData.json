@@ -3,7 +3,9 @@
     "id": 1,
     "name": "Laptop",
     "quantity": 15,
+    "price": 20.5,
     "category": "Electronics",
+    "description": "a fat cat",
     "status": "In Stock",
     "sku": "XP47K92L"
   },
@@ -11,7 +13,9 @@
     "id": 2,
     "name": "Desk Chair",
     "quantity": 8,
+    "price": 20.5,
     "category": "Furniture",
+    "description": "a fat cat",
     "status": "Low Stock",
     "sku": "FN5T8W3A"
   },
@@ -19,7 +23,9 @@
     "id": 3,
     "name": "Monitor",
     "quantity": 12,
+    "price": 20.5,
     "category": "Electronics",
+    "description": "a fat cat",
     "status": "In Stock",
     "sku": "EL39Q8MB"
   },
@@ -27,7 +33,9 @@
     "id": 4,
     "name": "Keyboard",
     "quantity": 20,
+    "price": 20.5,
     "category": "Electronics",
+    "description": "a fat cat",
     "status": "In Stock",
     "sku": "KB72L4VX"
   },
@@ -35,7 +43,9 @@
     "id": 5,
     "name": "Mouse",
     "quantity": 25,
+    "price": 20.5,
     "category": "Electronics",
+    "description": "a fat cat",
     "status": "In Stock",
     "sku": "MS63P5HJ"
   },
@@ -43,6 +53,8 @@
     "id": 6,
     "name": "Desk",
     "quantity": 5,
+    "price": 20.5,
+    "description": "a fat cat",
     "category": "Furniture",
     "status": "Low Stock",
     "sku": "DS24R7YZ"

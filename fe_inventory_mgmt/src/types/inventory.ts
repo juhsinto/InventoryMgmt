@@ -1,8 +1,13 @@
 export interface InventoryItem {
   id: number;
+  sku: string;
   name: string;
-  quantity: number;
   category: string;
   status: string;
-  sku: string;
+  description: string;
+  price: number;
+  quantity?: number;
+  stock?: string;
+  imageUrl?: string;
+  lastUpdated?: string;
 }

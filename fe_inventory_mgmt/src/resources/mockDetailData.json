@@ -1,0 +1,11 @@
+{
+  "id": 6,
+  "name": "Desk",
+  "quantity": 5,
+  "price": 20.5,
+  "description": "a fat cat",
+  "category": "Furniture",
+  "status": "Low Stock",
+  "sku": "DS24R7YZ",
+  "imageUrl": "https://placehold.co/600x400"
+}
