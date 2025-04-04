@@ -52,11 +52,11 @@
   {
     "id": 6,
     "name": "Desk",
-    "quantity": 5,
+    "quantity": 0,
     "price": 20.5,
     "description": "a fat cat",
     "category": "Furniture",
-    "status": "Low Stock",
+    "status": "No Stock",
     "sku": "DS24R7YZ"
   }
 ]
