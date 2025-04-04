@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop",
+    "quantity": 15,
+    "category": "Electronics",
+    "status": "In Stock",
+    "sku": "XP47K92L"
+  },
+  {
+    "id": 2,
+    "name": "Desk Chair",
+    "quantity": 8,
+    "category": "Furniture",
+    "status": "Low Stock",
+    "sku": "FN5T8W3A"
+  },
+  {
+    "id": 3,
+    "name": "Monitor",
+    "quantity": 12,
+    "category": "Electronics",
+    "status": "In Stock",
+    "sku": "EL39Q8MB"
+  },
+  {
+    "id": 4,
+    "name": "Keyboard",
+    "quantity": 20,
+    "category": "Electronics",
+    "status": "In Stock",
+    "sku": "KB72L4VX"
+  },
+  {
+    "id": 5,
+    "name": "Mouse",
+    "quantity": 25,
+    "category": "Electronics",
+    "status": "In Stock",
+    "sku": "MS63P5HJ"
+  },
+  {
+    "id": 6,
+    "name": "Desk",
+    "quantity": 5,
+    "category": "Furniture",
+    "status": "Low Stock",
+    "sku": "DS24R7YZ"
+  }
+]

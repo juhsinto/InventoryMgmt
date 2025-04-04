@@ -1,6 +1,6 @@
-import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import React from "react";
+import Header from "./common/Header";
+import Footer from "./common/Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -13,17 +13,21 @@ const Layout: React.FC<LayoutProps> = ({
   children,
   headerTitle,
   headerSubtitle,
-  className = ''
+  className = "",
 }) => {
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className={`max-w-5xl w-full bg-white shadow-xl rounded-lg overflow-hidden ${className}`}>
+    <div className="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+      <div
+        className={`max-w-5xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden ${className}`}
+      >
         <Header title={headerTitle} subtitle={headerSubtitle} />
-        <main className="p-8">{children}</main>
+        <main className="p-8 flex flex-col items-center">
+          <div className="w-full max-w-4xl">{children}</div>
+        </main>
         <Footer />
       </div>
     </div>
   );
 };
 
-export default Layout; 
+export default Layout;
