@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/Layout";
 import Button from "../components/common/Button";
-import axios from "axios";
 
 const SignIn: React.FC = () => {
   const [username, setUsername] = useState("");

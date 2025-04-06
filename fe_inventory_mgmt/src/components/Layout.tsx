@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({
   return (
     <div className="bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
       <div
-        className={`max-w-5xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden ${className}`}
+        className={`max-w-6xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden ${className}`}
       >
         <Header title={headerTitle} subtitle={headerSubtitle} />
         <main className="p-8 flex flex-col items-center">

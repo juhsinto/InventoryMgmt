@@ -1,74 +1,49 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { type InventoryItem } from "../types/inventory";
-import mockDetailDataJson from "../resources/mockDetailData.json";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import RoleBasedComponent from "../components/RoleBasedComponent";
 import Button from "../components/common/Button";
+import { getItem } from "../api/item";
 
 const InventoryDetail: React.FC = () => {
-  // TODO: use tanstackQuery to fetch data from API
   const { id } = useParams<{ id: string }>();
 
   const navigate = useNavigate();
-  const { userRole } = useAuth();
+  // TODO: modify the inventory details if user is admin
+  // const { userRole } = useAuth();
 
   const [item, setItem] = useState<InventoryItem | null>(null);
-  const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState<Partial<InventoryItem>>({});
-
-  const mockItem: InventoryItem = mockDetailDataJson;
+  const [, setFormData] = useState<Partial<InventoryItem>>({});
 
   useEffect(() => {
-    // Mock API call
     setTimeout(() => {
-      // Mock detailed item data
-      // const mockItem: InventoryItem = {
-      //   id: id || "1",
-      //   name: `Product ${id}`,
-      //   description:
-      //     "Detailed product description goes here. This is a sample product with various features and specifications.",
-      //   quantity: 25,
-      //   price: 19.99,
-      //   category: "Electronics",
-      //   supplier: "Supplier Inc.",
-      //   lastUpdated: "2025-03-28",
-      // };
+      const fetchItem = async () => {
+        try {
+          if (!id) {
+            throw new Error("No ID provided");
+          }
+          const item = await getItem(id);
+          setItem(item);
+          setFormData(item);
+        } catch (error) {
+          console.error("Failed to fetch inventory:", error);
+        }
+      };
 
-      setItem(mockItem);
-      setFormData(mockItem);
-      setLoading(false);
+      fetchItem();
     }, 1);
   }, [id]);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]:
-        name === "quantity" || name === "price" ? parseFloat(value) : value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In a real app, you would send this to your API
-    setItem(formData as InventoryItem);
-    setEditing(false);
-    // Show success message
-    alert("Item updated successfully");
-  };
-
-  if (loading) {
-    return <div className="p-6">Loading item details...</div>;
-  }
+  // TODO: LOADING
 
   if (!item) {
-    return <div className="p-6 text-red-600">Item not found</div>;
+    return (
+      <Layout headerTitle="Inventory Item Details">
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg max-w-4xl mx-auto"></div>
+      </Layout>
+    );
   }
 
   const InfoRow: React.FC<{ label: string; value: string | number }> = ({
@@ -82,13 +57,6 @@ const InventoryDetail: React.FC = () => {
       </dd>
     </div>
   );
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(amount);
-  };
 
   return (
     <Layout
@@ -109,20 +77,18 @@ const InventoryDetail: React.FC = () => {
               {item.name}
             </h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">
-              {item.category}
+              {item.category.name}
             </p>
           </div>
           <span
             className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
             ${
-              item.status === "In Stock"
-                ? "bg-green-100 text-green-800"
-                : item.status === "Low Stock"
-                ? "bg-yellow-100 text-yellow-800"
-                : "bg-red-100 text-red-800"
+              item.low_stock.toString() === "true"
+                ? "bg-red-100 text-red-800"
+                : "bg-green-100 text-green-800"
             }`}
           >
-            {item.status}
+            {item.low_stock.toString()}
           </span>
         </div>
 
@@ -163,7 +129,7 @@ const InventoryDetail: React.FC = () => {
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6 rounded-lg">
               <div className="space-y-2">
                 <p className="text-xl font-bold text-gray-900">
-                  Price: {formatCurrency(item.price)}
+                  Price: ${item.price}
                 </p>
                 <p className="text-sm text-gray-600">
                   Description: {item.description}
@@ -175,7 +141,7 @@ const InventoryDetail: React.FC = () => {
 
         <dl className="divide-y divide-gray-200">
           <InfoRow label="SKU" value={item.sku} />
-          <InfoRow label="Category" value={item.category} />
+          <InfoRow label="Category" value={item.category.name} />
         </dl>
       </div>
     </Layout>

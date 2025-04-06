@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     username: string,
     password: string
   ): Promise<boolean> => {
-    // doejohn ; password123 && testmanager & fatcat32
+    // [user] doejohn ; password123 && [manager] testmanager ; fatcat32 && [admin] root ; fatcat32
     const response = await axios.post("http://127.0.0.1:8000/api/token/", {
       username,
       password,
@@ -60,6 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const user = jwtDecode(access) as User;
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("accessToken", access);
       return true;
     }
 
@@ -69,6 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
   };
 
   // Helper function to check if user has one of the required roles

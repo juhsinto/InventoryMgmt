@@ -4,27 +4,29 @@ import { useAuth } from "../context/AuthContext";
 import Layout from "../components/Layout";
 import Button from "../components/common/Button";
 import Section from "../components/common/Section";
-import inventoryJson from "../resources/mockData.json";
 import { InventoryItem } from "../types/inventory";
 import RoleBasedComponent from "../components/RoleBasedComponent";
+import { getInventoryItems } from "../api/inventory";
+import { patchItem } from "../api/item";
 
 const InventoryStock: React.FC = () => {
-  const { user, userRole, logout } = useAuth();
+  const { user, logout } = useAuth();
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
-  const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [editQuantity, setEditQuantity] = useState<number | undefined>(0);
+  const [editQuantity, setEditQuantity] = useState<number>(0);
 
   // TODO: use tanstackQuery to fetch data from API
-  const inventoryItems: InventoryItem[] = inventoryJson;
-
-  // Fetch inventory data
   useEffect(() => {
-    // Mock API call
-    setTimeout(() => {
-      setInventory(inventoryItems);
-      setLoading(false);
-    }, 1);
+    const fetchInventory = async () => {
+      try {
+        const items = await getInventoryItems();
+        setInventory(items);
+      } catch (error) {
+        console.error("Failed to fetch inventory:", error);
+      }
+    };
+
+    fetchInventory();
   }, []);
 
   const handleEdit = (item: InventoryItem) => {
@@ -32,22 +34,32 @@ const InventoryStock: React.FC = () => {
     setEditQuantity(item.quantity);
   };
 
-  const handleSave = (id: number) => {
+  // TODO - fix item.low_stock as boolean).toString() ; data type to boolean and then fix renderboolean
+  const toggleLowStock = async (id: number) => {
+    const item = inventory.find((item) => item.id === id)!;
+    setInventory(
+      inventory.map((item) =>
+        item.id === id
+          ? { ...item, low_stock: (!item.low_stock as boolean).toString() }
+          : item
+      )
+    );
+    await patchItem(id, { low_stock: (!item.low_stock as boolean).toString() });
+  };
+
+  const handleSave = async (id: number) => {
     setInventory(
       inventory.map((item) =>
         item.id === id ? { ...item, quantity: editQuantity } : item
       )
     );
+    await patchItem(id, { quantity: editQuantity });
     setEditingId(null);
   };
 
   const handleCancel = () => {
     setEditingId(null);
   };
-
-  if (loading) {
-    return <div className="p-6">Loading inventory...</div>;
-  }
 
   return (
     <Layout
@@ -69,7 +81,7 @@ const InventoryStock: React.FC = () => {
       </div>
 
       <Section title="Inventory Overview">
-        <div className="overflow-x-auto">
+        <div className="mx-auto">
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr>
@@ -110,7 +122,7 @@ const InventoryStock: React.FC = () => {
                     </Link>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-blue-500">
-                    {item.category}
+                    {item.category.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {editingId === item.id ? (
@@ -136,20 +148,19 @@ const InventoryStock: React.FC = () => {
                     )}
                   </td>
                   <td className="px-6 py-4 text-blue-500 whitespace-nowrap">
-                    ${item.price.toFixed(2)}
+                    ${item.price}
                   </td>
                   <td className="px-6 py-4 text-blue-500 whitespace-nowrap">
                     <span
                       className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
             ${
-              item.status === "In Stock"
-                ? "bg-green-100 text-green-800"
-                : item.status === "Low Stock"
-                ? "bg-yellow-100 text-yellow-800"
-                : "bg-red-100 text-red-800"
+              item.low_stock.toString() === "true"
+                ? "bg-red-100 text-red-800"
+                : "bg-green-100 text-green-800"
             }`}
                     >
-                      {item.status}
+                      {/* renderboolean */}
+                      {item.low_stock.toString()}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -180,6 +191,12 @@ const InventoryStock: React.FC = () => {
                             className="text-white px-2 py-1 rounded text-sm"
                           >
                             Edit Stock
+                          </Button>
+                          <Button
+                            onClick={() => toggleLowStock(item.id)}
+                            className="text-white px-2 py-1 rounded text-sm"
+                          >
+                            Toggle Low Stock
                           </Button>
                         </div>
                       )}
