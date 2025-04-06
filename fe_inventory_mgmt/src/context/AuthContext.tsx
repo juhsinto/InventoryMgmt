@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, {
   createContext,
   useState,
@@ -5,11 +6,12 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export type UserRole = "admin" | "manager" | "user";
 
 interface User {
-  id: string;
+  user_id: string;
   username: string;
   email: string;
   role: UserRole;
@@ -46,35 +48,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     username: string,
     password: string
   ): Promise<boolean> => {
-    if (username && password) {
-      // Mock user database with roles
-      const mockUsers = [
-        { username: "admin", password: "admin123", role: "admin" as UserRole },
-        {
-          username: "manager",
-          password: "manager123",
-          role: "manager" as UserRole,
-        },
-        { username: "viewer", password: "user123", role: "viewer" as UserRole },
-      ];
+    // doejohn ; password123 && testmanager & fatcat32
+    const response = await axios.post("http://127.0.0.1:8000/api/token/", {
+      username,
+      password,
+    });
+    if (response.status === 200) {
+      const { access } = response.data;
 
-      const foundUser = mockUsers.find(
-        (u) => u.username === username && u.password === password
-      );
-
-      if (foundUser) {
-        const newUser = {
-          id: Math.random().toString(36).substr(2, 9),
-          username: foundUser.username,
-          email: `${foundUser.username}@example.com`,
-          role: foundUser.role,
-        };
-
-        setUser(newUser);
-        localStorage.setItem("viewer", JSON.stringify(newUser));
-        return true;
-      }
+      // store the token and then use it to get the user data
+      const user = jwtDecode(access) as User;
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      return true;
     }
+
     return false;
   };
 

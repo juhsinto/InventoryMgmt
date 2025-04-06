@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/Layout";
 import Button from "../components/common/Button";
+import axios from "axios";
 
 const SignIn: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -25,7 +26,7 @@ const SignIn: React.FC = () => {
         setError("Invalid username or password");
       }
     } catch (err) {
-      setError("An error occurred during sign in");
+      setError("An error occurred during sign in " + err?.toString());
     } finally {
       setIsLoading(false);
     }
