@@ -2,10 +2,10 @@ from django.http import HttpResponse
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
-#from rest_framework.permissions import AllowAny
+
 from datetime import datetime
-from .models import User, Category, InventoryItem
-from .serializers import UserSerializer, CategorySerializer, InventoryItemSerializer
+from .models import User, Category, InventoryItem, ItemChange
+from .serializers import UserSerializer, CategorySerializer, InventoryItemSerializer, ItemChangeSerializer
 from .permissions import IsAdminOrSelf, IsAdminOrManagerCanUpdateInventory
 
 def RootIndex(request):
@@ -49,8 +49,60 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class InventoryItemViewSet(viewsets.ModelViewSet):
     queryset = InventoryItem.objects.all()
     serializer_class = InventoryItemSerializer
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
 
     def get_permissions(self):
         if self.action in ['update', 'partial_update']:
             return [permissions.IsAuthenticated(), IsAdminOrManagerCanUpdateInventory()]
-        return [permissions.IsAuthenticated()] 
+        elif self.action == 'history':
+            return [permissions.IsAuthenticated(), permissions.IsAdminUser()]
+        return super().get_permissions()
+    
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        # Check if a manager is making the update and if quantity or low_stock are being changed
+        user = request.user
+        if user.role == 'manager':
+            quantity_before = instance.quantity
+            low_stock_before = instance.low_stock
+
+            self.perform_update(serializer)
+
+            quantity_after = instance.quantity
+            low_stock_after = instance.low_stock
+
+            if quantity_before != quantity_after or low_stock_before != low_stock_after:
+                ItemChange.objects.create(
+                    inventory_item=instance,
+                    user=user,
+                    quantity_before=quantity_before if quantity_before != quantity_after else None,
+                    quantity_after=quantity_after if quantity_before != quantity_after else None,
+                    low_stock_before=low_stock_before if low_stock_before != low_stock_after else None,
+                    low_stock_after=low_stock_after if low_stock_before != low_stock_after else None,
+                )
+            return Response(serializer.data)
+        else:
+            self.perform_update(serializer)
+            return Response(serializer.data)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    @action(detail=True, methods=['get'])
+    def history(self, request, pk=None):
+        """
+        Retrieves the history of changes for a specific inventory item.
+        """
+        try:
+            item = self.get_object()
+        except InventoryItem.DoesNotExist:
+            return Response({"detail": "Item not found."}, status=404)
+
+        item_changes = ItemChange.objects.filter(inventory_item=item).order_by('-timestamp')
+        serializer = ItemChangeSerializer(item_changes, many=True)
+        
+        return Response(serializer.data)

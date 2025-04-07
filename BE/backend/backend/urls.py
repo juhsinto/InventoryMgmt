@@ -8,7 +8,7 @@ from api import views
 router = DefaultRouter()
 router.register('users', UserViewSet)
 router.register('categories', CategoryViewSet)
-router.register('items', InventoryItemViewSet)
+router.register('items', views.InventoryItemViewSet, basename='items')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

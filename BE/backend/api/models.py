@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth import get_user_model
+
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
@@ -60,3 +62,17 @@ class InventoryItem(models.Model):
 
     def __str__(self):
         return self.name
+
+User = get_user_model()
+
+class ItemChange(models.Model):
+    inventory_item = models.ForeignKey(InventoryItem, on_delete=models.CASCADE, related_name='changes')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='item_changes')
+    quantity_before = models.IntegerField(null=True, blank=True)
+    quantity_after = models.IntegerField(null=True, blank=True)
+    low_stock_before = models.BooleanField(null=True, blank=True)
+    low_stock_after = models.BooleanField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.timestamp} - {self.inventory_item.name} - {self.user}"

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Category, InventoryItem
+from .models import User, Category, InventoryItem, ItemChange
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
@@ -58,3 +58,11 @@ class InventoryItemSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         validated_data['created_by'] = request.user
         return InventoryItem.objects.create(**validated_data)
+    
+class ItemChangeSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username') # Or any other user info you want to display
+
+    class Meta:
+        model = ItemChange
+        fields = ('timestamp', 'user', 'quantity_before', 'quantity_after', 'low_stock_before', 'low_stock_after')
+        read_only_fields = ('timestamp', 'user', 'quantity_before', 'quantity_after', 'low_stock_before', 'low_stock_after')
