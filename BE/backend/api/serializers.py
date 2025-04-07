@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User, Category, InventoryItem, ItemChange
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
@@ -66,3 +67,12 @@ class ItemChangeSerializer(serializers.ModelSerializer):
         model = ItemChange
         fields = ('timestamp', 'user', 'quantity_before', 'quantity_after', 'low_stock_before', 'low_stock_after')
         read_only_fields = ('timestamp', 'user', 'quantity_before', 'quantity_after', 'low_stock_before', 'low_stock_after')
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token['role'] = user.role
+
+        return token        
