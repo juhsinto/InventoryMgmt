@@ -22,3 +22,6 @@ create the "api" app within the backend
 read the deployment checklist - https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 something about using wsgi & gunicorn
 left some todos in the settings.py
+
+python manage.py makemigrations
+python manage.py migrate
