@@ -10,3 +10,15 @@
 ##### install the requirements
 
 `pip install -r requirements.txt`
+
+#### create django project
+
+`django-admin startproject backend`
+create the "api" app within the backend
+`python manage.py startapp api`
+
+# TODO
+
+read the deployment checklist - https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+something about using wsgi & gunicorn
+left some todos in the settings.py
