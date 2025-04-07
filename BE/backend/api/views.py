@@ -4,9 +4,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 #from rest_framework.permissions import AllowAny
 from datetime import datetime
-from .models import User
-from .serializers import UserSerializer
-from .permissions import IsAdminOrSelf
+from .models import User, Category, InventoryItem
+from .serializers import UserSerializer, CategorySerializer, InventoryItemSerializer
+from .permissions import IsAdminOrSelf, IsAdminOrManagerCanUpdateInventory
 
 def RootIndex(request):
     now = datetime.now()
@@ -40,3 +40,17 @@ class UserViewSet(viewsets.ModelViewSet):
         if user.role == 'admin':
             return User.objects.all()
         return User.objects.filter(id=user.id)
+    
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser] # Only admins can manage categories
+
+class InventoryItemViewSet(viewsets.ModelViewSet):
+    queryset = InventoryItem.objects.all()
+    serializer_class = InventoryItemSerializer
+
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update']:
+            return [permissions.IsAuthenticated(), IsAdminOrManagerCanUpdateInventory()]
+        return [permissions.IsAuthenticated()] 

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Category, InventoryItem
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
@@ -40,3 +40,21 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Managers can't create admin users.")
         
         return value
+    
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'name', 'description')
+
+class InventoryItemSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.id')
+    created_at = serializers.ReadOnlyField()
+
+    class Meta:
+        model = InventoryItem
+        fields = ('id', 'sku', 'name', 'description', 'quantity', 'price', 'category', 'low_stock', 'created_by', 'created_at')
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        validated_data['created_by'] = request.user
+        return InventoryItem.objects.create(**validated_data)

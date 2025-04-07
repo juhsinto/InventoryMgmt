@@ -39,3 +39,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return f"{self.username} - {self.role}"
+    
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+class InventoryItem(models.Model):
+    sku = models.CharField(max_length=12, unique=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField(default="")
+    quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='inventory_items')
+    low_stock = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_items')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
