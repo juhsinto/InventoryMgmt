@@ -2,7 +2,7 @@ import { InventoryItem } from "../types/inventory";
 import api from "./api";
 
 export const getItem = async (id: string) => {
-  const response = await api.get(`/api/item/${id}/`);
+  const response = await api.get(`/api/items/${id}/`);
   if (response.status !== 200) {
     throw new Error("Failed to fetch item");
   }

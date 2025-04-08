@@ -77,7 +77,7 @@ const InventoryDetail: React.FC = () => {
               {item.name}
             </h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">
-              {item.category.name}
+              {item.category_name}
             </p>
           </div>
           <span
@@ -141,7 +141,7 @@ const InventoryDetail: React.FC = () => {
 
         <dl className="divide-y divide-gray-200">
           <InfoRow label="SKU" value={item.sku} />
-          <InfoRow label="Category" value={item.category.name} />
+          <InfoRow label="Category" value={item.category_name} />
         </dl>
       </div>
     </Layout>
