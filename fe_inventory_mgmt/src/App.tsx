@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import Unauthorized from "./pages/Unauthorized";
 import SignUp from "./pages/Signup";
+import UserManagement from "./pages/UserManagement";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/inventory" element={<InventoryStock />} />
             <Route path="/inventory/:id" element={<InventoryDetail />} />
+            <Route path="/user_management" element={<UserManagement />} />
           </Route>
 
           {/* Redirect to home for unknown routes */}

@@ -71,6 +71,12 @@ const InventoryStock: React.FC = () => {
         </Button>
 
         <RoleBasedComponent allowedRoles={["admin"]}>
+          <Link to="/user_management/">
+            <Button>Manage Users</Button>
+          </Link>
+        </RoleBasedComponent>
+
+        <RoleBasedComponent allowedRoles={["admin"]}>
           <Button className="text-white px-4 py-2 rounded">Add New Item</Button>
           {/* TODO: implement add item feature */}
         </RoleBasedComponent>

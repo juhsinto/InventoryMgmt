@@ -9,15 +9,7 @@ import api from "../utils/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../utils/constants";
 import { jwtDecode } from "jwt-decode";
 import axios, { AxiosError } from "axios";
-
-export type UserRole = "admin" | "manager" | "user";
-
-interface User {
-  user_id: string;
-  username: string;
-  email: string;
-  role: UserRole;
-}
+import { User, UserRole } from "../types/user";
 
 interface AuthContextType {
   user: User | null;
