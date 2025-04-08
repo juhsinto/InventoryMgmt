@@ -18,12 +18,8 @@ const InventoryStock: React.FC = () => {
   // TODO: use tanstackQuery to fetch data from API
   useEffect(() => {
     const fetchInventory = async () => {
-      try {
-        const items = await getInventoryItems();
-        setInventory(items);
-      } catch (error) {
-        console.error("Failed to fetch inventory:", error);
-      }
+      const items = await getInventoryItems();
+      setInventory(items);
     };
 
     fetchInventory();

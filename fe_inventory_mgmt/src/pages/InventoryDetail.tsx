@@ -20,16 +20,12 @@ const InventoryDetail: React.FC = () => {
   useEffect(() => {
     setTimeout(() => {
       const fetchItem = async () => {
-        try {
-          if (!id) {
-            throw new Error("No ID provided");
-          }
-          const item = await getItem(id);
-          setItem(item);
-          setFormData(item);
-        } catch (error) {
-          console.error("Failed to fetch inventory:", error);
+        if (!id) {
+          throw new Error("No ID provided");
         }
+        const item = await getItem(id);
+        setItem(item);
+        setFormData(item);
       };
 
       fetchItem();
