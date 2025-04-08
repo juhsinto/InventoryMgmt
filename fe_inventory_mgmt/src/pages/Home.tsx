@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 import Section from "../components/common/Section";
 import FeatureCard from "../components/FeatureCard";
 import Button from "../components/common/Button";
+import { useAuth } from "../context/AuthContext";
 
 const Home: React.FC = () => {
+  const { logout, isAuthenticated } = useAuth();
+
   return (
     <Layout
       headerTitle="Inventory Management System"
@@ -21,16 +24,7 @@ const Home: React.FC = () => {
         </p>
       </Section>
 
-      <Section title="Key Features" align="center">
-        <ul className="text-gray-700 inline-block text-left mx-auto">
-          <li>Real-time inventory tracking</li>
-          <li>Automated stock level alerts</li>
-          <li>Order management and fulfillment</li>
-          <li>Reporting and analytics</li>
-          <li>Supplier management</li>
-          <li>Integration with e-commerce platforms</li>
-        </ul>
-      </Section>
+      <img src="/oiia-cat.gif" alt="cat" className="w-20  mx-auto my-8" />
 
       <Section title="Benefits">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -53,16 +47,40 @@ const Home: React.FC = () => {
         </div>
       </Section>
 
-      <Section title="Ready to Get Started?" className="text-center">
-        <p className="text-gray-700 mb-6">
-          Sign in to access your inventory management dashboard.
-        </p>
-        <Link to="/signup">
-          <Button>Sign Up</Button>
-        </Link>
-        <Link to="/signin">
-          <Button>Sign In</Button>
-        </Link>
+      <Section
+        title={isAuthenticated ? "Having fun ?" : "Ready to Get Started?"}
+        className="text-center"
+      >
+        {!isAuthenticated ? (
+          <>
+            <p className="text-gray-700 mb-6">
+              Sign in to access your inventory management dashboard.
+            </p>
+            <div className="grid grid-cols-2">
+              <Link to="/signup">
+                <Button>Sign Up</Button>
+              </Link>
+
+              <Link to="/signin">
+                <Button>Sign In</Button>
+              </Link>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="text-gray-700 mb-6">You are already signed in</p>
+            <div className="grid grid-cols-2">
+              <Link to="/inventory">
+                <Button variant="primary">View Inventory</Button>
+              </Link>
+
+              <Link to="/">
+                <Button onClick={logout}>Sign Out</Button>
+              </Link>
+            </div>
+          </>
+        )}
+        {/* // if alredy signed in then show the sign out instead of sign in */}
       </Section>
     </Layout>
   );

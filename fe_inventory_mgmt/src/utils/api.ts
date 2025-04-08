@@ -2,7 +2,7 @@ import axios from "axios";
 import { ACCESS_TOKEN } from "./constants";
 
 const api = axios.create({
-  baseURL: import.meta.env.BACKEND_ENDPOINT_URL,
+  baseURL: import.meta.env.VITE_BACKEND_ENDPOINT_URL,
 });
 
 // Request interceptor to add the token to the headers

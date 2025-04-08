@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 import Button from "../components/common/Button";
 import Section from "../components/common/Section";
 import { InventoryItem } from "../types/inventory";

@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import Unauthorized from "./pages/Unauthorized";
+import SignUp from "./pages/Signup";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
 
           {/* Routes for all authenticated users */}

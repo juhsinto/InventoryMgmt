@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/common/Layout";
 import { type InventoryItem } from "../types/inventory";
 import { useNavigate, useParams } from "react-router-dom";
 import RoleBasedComponent from "../components/RoleBasedComponent";

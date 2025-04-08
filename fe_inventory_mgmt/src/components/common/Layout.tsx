@@ -1,6 +1,7 @@
 import React from "react";
-import Header from "./common/Header";
-import Footer from "./common/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Link } from "react-router-dom";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -20,7 +21,9 @@ const Layout: React.FC<LayoutProps> = ({
       <div
         className={`max-w-6xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden ${className}`}
       >
-        <Header title={headerTitle} subtitle={headerSubtitle} />
+        <Link to="/">
+          <Header title={headerTitle} subtitle={headerSubtitle} />
+        </Link>
         <main className="p-8 flex flex-col items-center">
           <div className="w-full max-w-4xl">{children}</div>
         </main>
