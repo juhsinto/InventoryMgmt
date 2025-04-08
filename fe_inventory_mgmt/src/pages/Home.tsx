@@ -57,6 +57,9 @@ const Home: React.FC = () => {
         <p className="text-gray-700 mb-6">
           Sign in to access your inventory management dashboard.
         </p>
+        <Link to="/signup">
+          <Button>Sign Up</Button>
+        </Link>
         <Link to="/signin">
           <Button>Sign In</Button>
         </Link>

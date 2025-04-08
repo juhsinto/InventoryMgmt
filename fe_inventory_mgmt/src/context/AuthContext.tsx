@@ -1,12 +1,8 @@
-import axios from "axios";
-import React, {
-  createContext,
-  useState,
-  useContext,
-  ReactNode,
-  useEffect,
-} from "react";
+import React, { createContext, useState, useContext, ReactNode } from "react";
+import api from "../utils/api";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../utils/constants";
 import { jwtDecode } from "jwt-decode";
+import { AxiosError } from "axios";
 
 export type UserRole = "admin" | "manager" | "user";
 
@@ -21,6 +17,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   userRole: UserRole | null;
+  // signInError: string;
   hasRole: (roles: UserRole[]) => boolean;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
@@ -34,37 +31,36 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  // const [signInError, setSignInError] = useState<string>("");
 
-  // Check for stored user on initial load
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  // TODO: use OAuth to login
   const login = async (
     username: string,
     password: string
   ): Promise<boolean> => {
-    // [user] doejohn ; password123 && [manager] testmanager ; fatcat32 && [admin] root ; fatcat32
-    const response = await axios.post("http://127.0.0.1:8000/api/token/", {
-      username,
-      password,
-    });
-    if (response.status === 200) {
-      const { access } = response.data;
-
-      // store the token and then use it to get the user data
-      const user = jwtDecode(access) as User;
+    try {
+      const res = await api.post("/api/token/", { username, password });
+      console.log("res", res);
+      if (res.status !== 200) {
+        console.log("res", res);
+        // throw new Error("Invalid credentials " + res.data.detail);
+      }
+      const user = jwtDecode(res.data.access) as User;
       setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("accessToken", access);
+      localStorage.setItem(ACCESS_TOKEN, res.data.access);
+      localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
       return true;
-    }
+    } catch (error) {
+      console.log("Encountered an error while trying to login");
+      let errorMessage = "Invalid credentials";
 
-    return false;
+      if (error instanceof AxiosError && error.response?.data?.detail) {
+        errorMessage = error.response.data.detail;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      throw new Error(errorMessage);
+    }
   };
 
   const logout = () => {
@@ -86,6 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         isAuthenticated: !!user,
         userRole: user?.role || null,
         hasRole,
+        // signInError,
         login,
         logout,
       }}

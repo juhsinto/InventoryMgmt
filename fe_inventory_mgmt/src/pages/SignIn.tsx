@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import Layout from "../components/Layout";
 import Button from "../components/common/Button";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const SignIn: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -21,8 +21,6 @@ const SignIn: React.FC = () => {
       const success = await login(username, password);
       if (success) {
         navigate("/inventory");
-      } else {
-        setError("Invalid username or password");
       }
     } catch (err) {
       setError("An error occurred during sign in " + err?.toString());

@@ -5,13 +5,14 @@ export interface InventoryItem {
   description: string;
   quantity: number;
   price: string;
-  category: Category;
+  category_id: number;
+  category_name: string;
   low_stock: string;
   imageUrl?: string;
   lastUpdated?: string;
 }
-interface Category {
-  id: number;
-  name: string;
-  description: string;
-}
+// interface Category {
+//   id: number;
+//   name: string;
+//   description: string;
+// }

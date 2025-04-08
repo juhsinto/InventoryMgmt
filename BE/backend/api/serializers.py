@@ -50,10 +50,12 @@ class CategorySerializer(serializers.ModelSerializer):
 class InventoryItemSerializer(serializers.ModelSerializer):
     created_by = serializers.ReadOnlyField(source='created_by.id')
     created_at = serializers.ReadOnlyField()
-
+    category_name = serializers.ReadOnlyField(source='category.name') 
     class Meta:
         model = InventoryItem
-        fields = ('id', 'sku', 'name', 'description', 'quantity', 'price', 'category', 'low_stock', 'created_by', 'created_at')
+        fields = ('id', 'sku', 'name', 'description', 'quantity', 'price', 'category', 'category_name', 'low_stock', 'created_by', 'created_at')
+        read_only_fields = ('created_by', 'created_at', 'category_name')
+        
 
     def create(self, validated_data):
         request = self.context.get('request')

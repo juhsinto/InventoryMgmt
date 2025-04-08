@@ -3,6 +3,9 @@ _FE project_
 **to run**
 `pnpm run dev`
 
+improved the requests endpoints to use interceptor
+using the new endpoints for login, items
+
 **TODO**
 
 1. TODO: use tanstackQuery to fetch data from API
@@ -15,5 +18,3 @@ _FE project_
 4. {/_ TODO: implement add item feature _/}
 
 5. {/_ TODO: create a user management route/page _/}
-
-6. // TODO: use OAuth to login

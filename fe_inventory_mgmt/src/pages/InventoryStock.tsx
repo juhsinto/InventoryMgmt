@@ -6,8 +6,8 @@ import Button from "../components/common/Button";
 import Section from "../components/common/Section";
 import { InventoryItem } from "../types/inventory";
 import RoleBasedComponent from "../components/RoleBasedComponent";
-import { getInventoryItems } from "../api/inventory";
-import { patchItem } from "../api/item";
+import { getInventoryItems } from "../utils/inventory";
+import { patchItem } from "../utils/item";
 
 const InventoryStock: React.FC = () => {
   const { user, logout } = useAuth();
@@ -64,7 +64,7 @@ const InventoryStock: React.FC = () => {
   return (
     <Layout
       headerTitle="Inventory Stock"
-      headerSubtitle={`Welcome, ${user?.username || "User"}`}
+      headerSubtitle={`Welcome, ${user?.role}`}
     >
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold text-gray-800">
@@ -122,7 +122,7 @@ const InventoryStock: React.FC = () => {
                     </Link>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-blue-500">
-                    {item.category.name}
+                    {item.category_name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {editingId === item.id ? (
