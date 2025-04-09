@@ -4,7 +4,7 @@ export interface User {
   id: string;
   username: string;
   email: string;
-  role: string;
+  role: UserRole;
   is_active?: boolean;
   date_added?: string;
   added_by?: string;

@@ -27,10 +27,10 @@ Unique Requirements:
 
 ### Consideration/Assumptions:
 
-Can only create normal users when signing up
-Low stock alert would be a boolean value for an inventory item ; i.e. on the FE it shows a status pill showing low stock true or false
+- Can only create normal users when signing up
+- Low stock alert would be a boolean value for an inventory item ; i.e. on the FE it shows a status pill showing low stock true or false
 
-### Methodology:
+### Methodology/Design Choice:
 
 I first analyzed the requirements:
 since there would be user "role based access control" ; i thought i'd tackle that first - by creating a user management api
@@ -39,13 +39,13 @@ then, later i'd create the inventory management, to CRUD inventory items.
 Initially i scaffolded the FE in React, with cursor, to create the stubs of the required functionality, using mock data.
 then i scaffolded the BE in Django, also with cursor, to create BE stubs, and connected the FE to the BE.
 
-then i spent a considerable amount of time trying to set up a deployment pipeline with GCP
-with the mvp BE - i created a docker container, used GC artifact registry, created an artifact repo there, tagged my container image, and pushed it to the repo.
-then, i used google cloud run to deploy the container, and it somewhat worked, although i was seeing some cross-origin errors, which then let me to create a continuous deployment pipeline - where i connected a git repository to the cloud build, to trigger on pushing to a branch. after some rapid deployment, i might have exceeded a limit, and then the builds were failing.
+Since I thought of "begining with the end in mind" i tried to deploy the backend & set up a deployment pipeline
+which I spent a considerable amount of time trying to get it to work, and it did, with a POC - https://mvp-django-335924810546.us-central1.run.app/
+For this mvp BE - i created a docker container, used GC artifact registry, created an artifact repo there, tagged my container image, and pushed it to the repo.
+Then, i used google cloud run to deploy the container, and it somewhat worked, although i was seeing some cross-origin errors, which then let me to create a continuous deployment pipeline - where i connected a git repository to the cloud build, to trigger on pushing to a branch. after some rapid deployment, i might have exceeded a limit, and then the builds were failing.
+Anyway, i decided to focus on creating the backend again, based on the things i've learned so far (models, serializer, view, url route) in django
 
-anyway, i decided to focus on creating the backend again, based on the things i've learned so far (models, serializer, view, url route) in django
-
-here are the steps i performed for the BE:
+Here are the steps i performed for the BE:
 
 1.  use a venv to created an isolated python environment
 2.  install the base requirements
@@ -65,24 +65,28 @@ Then I wired up the api endpoints to the react components, and used react-query 
 📝 For the database
 I need to change the database to use postgres, and then run the migration ; have done it in a POC - using docker for the postgres db
 
+Postman API collection
+
+- https://www.postman.com/juhsinto/publicprojects/collection/u6tfltb/inventorymanagement
+
 ## Todo
 
 - connect inventory item history to the inventory item detail page (for admin)
 - implement feature - edit inventory item detail => react-hook-form ?
-- implement delete funcitonality
+- implement delete functionality
 - implement add item feature => react-hook-form ?
 - implement add category feature => react-hook-form ?
 - implement bulk add csv upload
 - inventory report by month ?
-- Tidy the readme ; add execution intructions
+- Tidy the readme ; add execution instructions
 
 ### future iterations / improvements / features
 
-- rate limitting the apis
+- rate limiting the apis
 - creating an index
-- this) - with forgot password flow
-- provide postman collection
-- oauth
+- forgot password flow
+- swagger API doc
+- oauth instead of manual token based auth
 - automated end to end testing using cypress
 - front-end tests
 

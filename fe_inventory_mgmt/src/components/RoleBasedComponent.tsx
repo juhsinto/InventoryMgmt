@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
-import { useAuth, UserRole } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import { UserRole } from "../types/user";
 
 interface RoleBasedComponentProps {
   allowedRoles: UserRole[];

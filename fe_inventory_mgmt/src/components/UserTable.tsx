@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { User } from "../types/user";
+import { User, UserRole } from "../types/user";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getUsers } from "../api/users";
 
@@ -55,16 +55,16 @@ const UserTable: React.FC = () => {
 };
 
 interface UserTableRowProps {
-  user: User; // Explicitly define the user prop type
+  user: User;
 }
 
 const UserTableRow: React.FC<UserTableRowProps> = ({ user }) => {
-  const [role, setRole] = useState(user.role);
+  const [role, setRole] = useState<UserRole>(user.role);
 
   const handleRoleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newRole = event.target.value;
     console.log("jm: new role     ", newRole);
-    setRole(newRole);
+    setRole(newRole as UserRole);
     // onRoleChange(user.id, newRole); // Notify the parent component of the change
   };
 
@@ -88,7 +88,6 @@ const UserTableRow: React.FC<UserTableRowProps> = ({ user }) => {
           <option value="user">User</option>
           <option value="admin">Admin</option>
           <option value="manager">Manager</option>
-          {/* You can dynamically add more roles here if needed */}
         </select>
       </td>
     </tr>
