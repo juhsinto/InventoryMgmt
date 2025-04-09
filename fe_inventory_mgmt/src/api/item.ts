@@ -1,8 +1,9 @@
 import { InventoryItem } from "../types/inventory";
 import api from "./api";
 
-export const getItem = async (id: string) => {
+export const getItemDetails = async (id: string): Promise<InventoryItem> => {
   const response = await api.get(`/api/items/${id}/`);
+
   if (response.status !== 200) {
     throw new Error("Failed to get item");
   }

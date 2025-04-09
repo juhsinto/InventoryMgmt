@@ -37,12 +37,12 @@ const InventoryDash: React.FC = () => {
               </Link>
 
               {/* TODO: ADD NEW ITEM */}
-              <Link to="/user_management/">
+              <Link to="/inventory_add/">
                 <Button className="text-white px-4 py-2">Add New Item</Button>
               </Link>
 
               {/* TODO: BULK UPDATE */}
-              <Link to="/user_management/">
+              <Link to="/bulk_update/">
                 <Button className="text-white px-4 py-2">Bulk Update</Button>
               </Link>
             </div>
