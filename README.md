@@ -95,9 +95,9 @@ Postman API collection
 set up artifact registry, then create repo, then copy the link
 
 gcloud auth configure-docker us-central1-docker.pkg.dev
-
-docker tag mvp-django <region>/<project>/mvp/mvp-django:latest
-
-docker push <region>/<project>/mvp/mvp-django:latest
+docker tag inventory-be us-central1-docker.pkg.dev/gen-lang-client-0506873856/inventory-mgmt-be/inventory-be:latest
+docker push us-central1-docker.pkg.dev/gen-lang-client-0506873856/inventory-mgmt-be/inventory-be:latest
+docker tag postgres:alpine us-central1-docker.pkg.dev/gen-lang-client-0506873856/inventory-mgmt-be/postgres:alpine
+docker push us-central1-docker.pkg.dev/gen-lang-client-0506873856/inventory-mgmt-be/postgres:alpine
 
 gcloud run
