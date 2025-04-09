@@ -28,10 +28,10 @@ const InventoryDash: React.FC = () => {
         <InventoryOverview />
       </Section>
 
-      <Section title="Admin only actions">
-        <div className="mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-            <RoleBasedComponent allowedRoles={["admin"]}>
+      <RoleBasedComponent allowedRoles={["admin"]}>
+        <Section title="Admin only actions">
+          <div className="mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               <Link to="/user_management/">
                 <Button>Manage Users</Button>
               </Link>
@@ -45,10 +45,10 @@ const InventoryDash: React.FC = () => {
               <Link to="/user_management/">
                 <Button className="text-white px-4 py-2">Bulk Update</Button>
               </Link>
-            </RoleBasedComponent>
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      </RoleBasedComponent>
     </Layout>
   );
 };
