@@ -7,7 +7,7 @@ Inventory Management System
 - ✅ Implement a back-end service - Using Django REST Framework
 - ✅ Ensure the service provides APIs for the front-end to interact with the data layer.
 
-- 📝 Include a database (SQL or NoSQL) for persisting data.
+- ✅ Include a database (SQL or NoSQL) for persisting data => Using SQLite
 - 📝 Deploy your solution to a cloud platform
 
 Base Requirements:
