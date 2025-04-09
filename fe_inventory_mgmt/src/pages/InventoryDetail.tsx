@@ -11,6 +11,8 @@ import {
 } from "@tanstack/react-query";
 import api from "../api/api";
 import { InventoryItem } from "../types/inventory";
+import Section from "../components/common/Section";
+import ItemHistory from "../components/ItemHistory";
 
 const InventoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -94,6 +96,7 @@ const InventoryDetail: React.FC = () => {
                     </Button>
                     <Button
                       variant="secondary"
+                      onClick={() => alert("TODO: stub")}
                       className="px-2 py-1 rounded text-sm sm:block w-full sm:w-auto"
                     >
                       Edit
@@ -116,6 +119,12 @@ const InventoryDetail: React.FC = () => {
           <InfoRow label="Low Stock ?" value={item.low_stock.toString()} />
         </div>
       </div>
+
+      <RoleBasedComponent allowedRoles={["admin"]} fallback={<></>}>
+        <Section className="pt-10" title="inventory item history">
+          <ItemHistory id={id!} />
+        </Section>
+      </RoleBasedComponent>
     </Layout>
   );
 };

@@ -12,7 +12,7 @@ Inventory Management System
 
 Base Requirements:
 
-- 📝 Admin - Add and manage items in inventory (name, quantity, price, and category).
+- ✅ Admin - Add and manage items in inventory (name, quantity, price, and category).
 - ✅ Admin - Assign user roles (admin, manager, or viewer).
 - ✅ Manager - Update inventory quantities (but not item details).
 - ✅ Manager - Generate low-stock alerts.
@@ -73,12 +73,10 @@ Postman API collection
 
 - connect inventory item history to the inventory item detail page (for admin)
 - implement feature - edit inventory item detail => react-hook-form ?
-- implement delete functionality
-- implement add item feature => react-hook-form ?
 - implement add category feature => react-hook-form ?
+
 - implement bulk add csv upload
 - inventory report by month ?
-- Tidy the readme ; add execution instructions
 
 ### future iterations / improvements / features
 
