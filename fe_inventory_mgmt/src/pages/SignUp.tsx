@@ -3,7 +3,7 @@ import Layout from "../components/common/Layout";
 import Button from "../components/common/Button";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../utils/register";
+import { registerUser } from "../api/register";
 
 const SignUp: React.FC = () => {
   const [username, setUsername] = useState("");

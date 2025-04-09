@@ -4,7 +4,7 @@ import { type InventoryItem } from "../types/inventory";
 import { useNavigate, useParams } from "react-router-dom";
 import RoleBasedComponent from "../components/RoleBasedComponent";
 import Button from "../components/common/Button";
-import { getItem } from "../utils/item";
+import { getItem } from "../api/item";
 
 const InventoryDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

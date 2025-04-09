@@ -1,11 +1,14 @@
 import { ChangeEvent, useState } from "react";
 import { User } from "../types/user";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { getUsers } from "../api/users";
 
-interface UserTableProps {
-  users: User[];
-}
+const UserTable: React.FC = () => {
+  const { data } = useSuspenseQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
 
-const UserTable: React.FC<UserTableProps> = ({ users }) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -38,7 +41,7 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {users.map((user) => (
+          {data.map((user) => (
             <UserTableRow
               key={user.id}
               user={user}

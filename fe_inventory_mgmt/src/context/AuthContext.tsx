@@ -5,7 +5,7 @@ import React, {
   ReactNode,
   useLayoutEffect,
 } from "react";
-import api from "../utils/api";
+import api from "../api/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../utils/constants";
 import { jwtDecode } from "jwt-decode";
 import axios, { AxiosError } from "axios";

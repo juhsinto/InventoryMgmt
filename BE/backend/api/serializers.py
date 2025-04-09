@@ -63,7 +63,7 @@ class InventoryItemSerializer(serializers.ModelSerializer):
         return InventoryItem.objects.create(**validated_data)
     
 class ItemChangeSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username') # Or any other user info you want to display
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = ItemChange

@@ -3,8 +3,8 @@ import { InventoryItem } from "../../types/inventory";
 import Button from "../common/Button";
 import RoleBasedComponent from "../RoleBasedComponent";
 import { Link } from "react-router-dom";
-import { patchItem } from "../../utils/item";
-import { getInventoryItems } from "../../utils/inventory";
+import { patchItem } from "../../api/item";
+import { getInventoryItems } from "../../api/inventory";
 
 const InventoryOverview: React.FC = () => {
   const [editingId, setEditingId] = useState<number | null>(null);
