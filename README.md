@@ -2,26 +2,28 @@ Inventory Management System
 
 ### Features Completed:
 
-✅ Develop a user interface - Using React/Tailwind/Tanstack
-✅ Ensure the UI is user-friendly and responsive - Using Tailwind CSS
-✅ Implement a back-end service - Using Django REST Framework
-✅ Ensure the service provides APIs for the front-end to interact with the data layer.
+- ✅ Develop a user interface - Using React/Tailwind/Tanstack
+- ✅ Ensure the UI is user-friendly and responsive - Using Tailwind CSS
+- ✅ Implement a back-end service - Using Django REST Framework
+- ✅ Ensure the service provides APIs for the front-end to interact with the data layer.
 
-📝 Include a database (SQL or NoSQL) for persisting data.
-📝 Deploy your solution to a cloud platform
+- 📝 Include a database (SQL or NoSQL) for persisting data.
+- 📝 Deploy your solution to a cloud platform
 
 Base Requirements:
-📝 Admin - Add and manage items in inventory (name, quantity, price, and category).
-✅ Admin - Assign user roles (admin, manager, or viewer).
-✅ Manager - Update inventory quantities (but not item details).
-✅ Manager - Generate low-stock alerts.
-✅ Viewer - View inventory items and their details.
+
+- 📝 Admin - Add and manage items in inventory (name, quantity, price, and category).
+- ✅ Admin - Assign user roles (admin, manager, or viewer).
+- ✅ Manager - Update inventory quantities (but not item details).
+- ✅ Manager - Generate low-stock alerts.
+- ✅ Viewer - View inventory items and their details.
 
 Unique Requirements:
-✅ Implement role-based access control (RBAC) to restrict actions.
-📝 Create audit logs showing who updated inventory and when.
-📝 Allow managers to bulk update quantities using CSV uploads.
-📝 Admins can generate monthly inventory reports via API.
+
+- ✅ Implement role-based access control (RBAC) to restrict actions.
+- 📝 Create audit logs showing who updated inventory and when.
+- 📝 Allow managers to bulk update quantities using CSV uploads.
+- 📝 Admins can generate monthly inventory reports via API.
 
 ### Consideration/Assumptions:
 
@@ -53,6 +55,7 @@ here are the steps i performed for the BE:
 6.  i had to createsuperuser since i needed to restrict users from creating admins and then deleting others (lol)
 7.  after testing out the user management, using postman to manually test the endpoints (creating a collection), I then went on to create the inventory item management.
 8.  In the inventory management, I had to restrict managers to only be able to set low_stock and quantity of the inventory items, whereas admins could edit everything, and normal users could only view items.
+9.  I created an inventory item history endpoint, which could be used for viewing the item history
 
 On the front-end i first focussed on the RBAC control, using react-router-dom & created an auth provider,
 along with token based authentication, based on whether the user's token is active.
@@ -64,17 +67,24 @@ I need to change the database to use postgres, and then run the migration ; have
 
 ## Todo
 
-Tidy the readme ; add execution intructions
+- connect inventory item history to the inventory item detail page (for admin)
+- implement feature - edit inventory item detail => react-hook-form ?
+- implement delete funcitonality
+- implement add item feature => react-hook-form ?
+- implement add category feature => react-hook-form ?
+- implement bulk add csv upload
+- inventory report by month ?
+- Tidy the readme ; add execution intructions
 
 ### future iterations / improvements / features
 
-rate limitting the apis
-creating an index
-creating user & validating email (i did actually implement this in a POC but didn't have enough time to implement it in this) - with forgot password flow
-provide postman collection
-oauth
-automated end to end testing using cypress
-front-end tests
+- rate limitting the apis
+- creating an index
+- this) - with forgot password flow
+- provide postman collection
+- oauth
+- automated end to end testing using cypress
+- front-end tests
 
 ##### Deployment todo:
 
