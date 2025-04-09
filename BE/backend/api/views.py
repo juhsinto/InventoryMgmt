@@ -52,6 +52,8 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_permissions(self):
+        if self.action == 'create':
+            return [permissions.IsAuthenticated(), permissions.IsAdminUser()]
         if self.action in ['update', 'partial_update']:
             return [permissions.IsAuthenticated(), IsAdminOrManagerCanUpdateInventory()]
         elif self.action == 'history':
@@ -66,7 +68,7 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
 
         # Check if a manager is making the update and if quantity or low_stock are being changed
         user = request.user
-        if user.role == 'manager':
+        if user.role == 'manager' or user.role == 'admin':
             quantity_before = instance.quantity
             low_stock_before = instance.low_stock
 
