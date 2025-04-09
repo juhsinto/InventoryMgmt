@@ -41,7 +41,6 @@ const InventoryDash: React.FC = () => {
                 <Button className="text-white px-4 py-2">Add New Item</Button>
               </Link>
 
-              {/* TODO: BULK UPDATE */}
               <Link to="/bulk_update/">
                 <Button className="text-white px-4 py-2">Bulk Update</Button>
               </Link>
