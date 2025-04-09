@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+
 import os
+# for env variables
+from os import environ as env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6kctk39(j7$=@h$7zs5szrl#lui%48-lnz@wu+&k0$4^rv7o8-'
+SECRET_KEY = env["SECRET_KEY"]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# TODO - change when deploying
-DEBUG = True
+DEBUG = False
 
 # TODO - change when deploying
 ALLOWED_HOSTS = ["*"]
@@ -94,11 +94,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-# TODO - change when deploying
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env["NAME"],
+        'USER': env["USER"],
+        'PASSWORD': env["PASSWORD"],
+        'HOST': env["HOST"],
+        'PORT': env["PORT"],
     }
 }
 

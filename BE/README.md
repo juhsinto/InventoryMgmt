@@ -4,21 +4,39 @@
 
 ##### create the venv
 
-`python3 -m venv env`
-`source ./env/bin/activate`
+`python3 -m venv venv`
+`source ./venv/bin/activate`
 
 ##### install the requirements
 
 `pip install -r requirements.txt`
 
-#### create django project
+### run the project
+
+#### do migrations if necessary
+
+`python manage.py migrate`
+
+# `python manage.py makemigrations` ; only if changes made to the models
+
+### create superuser on first run
+
+`python manage.py createsuperuser`
+root
+user@example.com
+fatcat32
+
+### run the server
+
+`python manage.py runserver`
+
+#### steps to create django project
 
 `django-admin startproject backend`
 create the "api" app within the backend
 `python manage.py startapp api`
 
-python manage.py makemigrations
-python manage.py migrate
+# unnecessary because not using the admin
 
 python manage.py loaddata core/fixtures/initial_site.json
 

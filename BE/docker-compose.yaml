@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/pgdata/:/var/lib/postgresql/data
+    restart: on-failure
+  api:
+    build: .
+    container_name: inventory_api
+    command: sh -c "gunicorn --chdir backend  --bind 0.0.0.0:8000 --workers=4 backend.wsgi:application --reload"
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    restart: on-failure
