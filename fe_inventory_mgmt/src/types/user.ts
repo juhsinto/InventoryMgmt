@@ -5,4 +5,7 @@ export interface User {
   username: string;
   email: string;
   role: string;
+  is_active?: boolean;
+  date_added?: string;
+  added_by?: string;
 }

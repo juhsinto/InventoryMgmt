@@ -71,7 +71,7 @@ const Home: React.FC = () => {
             <p className="text-gray-700 mb-6">You are already signed in</p>
             <div className="grid grid-cols-2">
               <Link to="/inventory">
-                <Button variant="primary">View Inventory</Button>
+                <Button variant="primary">View Dashboard</Button>
               </Link>
 
               <Link to="/">

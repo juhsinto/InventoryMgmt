@@ -1,16 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Layout from "../components/common/Layout";
 import api from "../utils/api";
 import UserTable from "../components/UserTable";
 import { User } from "../types/user";
 
 const UserManagement: React.FC = () => {
-  const getUsers = async () => {
+  const getUsers = async (): Promise<User[]> => {
     const response = await api.get("/api/users/");
     return await response.data;
   };
-
-  const data = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ["users"],
     queryFn: getUsers,
   });
@@ -24,7 +23,7 @@ const UserManagement: React.FC = () => {
       <div className=" mx-auto">
         <p className="text-black ">Manage users here</p>
         <div className="overflow-hidden shadow sm:rounded-md text-black">
-          <UserTable users={data.data as User[]} />
+          <UserTable users={data} />
         </div>
       </div>
     </Layout>

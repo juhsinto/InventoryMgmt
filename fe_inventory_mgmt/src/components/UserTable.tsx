@@ -35,24 +35,6 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
             >
               Role
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Active
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Date Added
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Added By
-            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">

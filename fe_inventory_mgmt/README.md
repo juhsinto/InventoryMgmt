@@ -7,6 +7,9 @@ improved the requests endpoints to use interceptor
 using the new endpoints for login, items
 added sign up
 
+now => move api calls to axios directory ?
+change all fetch/useeffect to use react-query
+
 **TODO**
 
 1. {/_ TODO: implement feature - edit inventory item detail _/}
