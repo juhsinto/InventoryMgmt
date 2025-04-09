@@ -62,7 +62,9 @@ Then I wired up the api endpoints to the react components, and used react-query 
 📝 For the database
 I need to change the database to use postgres, and then run the migration ; have done it in a POC - using docker for the postgres db
 
-## Todo - tidy the below
+## Todo
+
+Tidy the readme ; add execution intructions
 
 ### future iterations / improvements / features
 
