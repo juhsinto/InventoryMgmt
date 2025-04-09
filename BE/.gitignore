@@ -1,6 +1,7 @@
 
 core/__pycache__/
 static/
+postgres/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
