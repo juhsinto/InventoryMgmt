@@ -26,10 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6kctk39(j7$=@h$7zs5szrl#lui%48-lnz@wu+&k0$4^rv7o8-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# TODO - change when deploying
 DEBUG = True
 
-# TODO - change when deploying
 ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
@@ -144,8 +142,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# TODO - change when deploying
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWS_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    'https://localhost:3000'
+]
+#CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOWS_CREDENTIALS = True
 
 AUTH_USER_MODEL = 'api.User' 
