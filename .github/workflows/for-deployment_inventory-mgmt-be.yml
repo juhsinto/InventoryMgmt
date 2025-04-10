@@ -26,7 +26,7 @@ jobs:
 
       - name: Create and start virtual environment
         run: |
-          cd BE/backend
+          cd BE
           python -m venv venv
           source venv/bin/activate
 
