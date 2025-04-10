@@ -28,6 +28,7 @@ const InventoryOverview: React.FC = () => {
   };
 
   const editItemQty = useMutation({
+    // TODO - refactor ; put the api call in the /api/item.ts
     mutationFn: (item: { id: number; newQty: number }) => {
       return api.patch(`/api/items/${item.id}/`, { quantity: item.newQty });
     },
@@ -38,6 +39,7 @@ const InventoryOverview: React.FC = () => {
   });
 
   const editItemStockLevel = useMutation({
+    // TODO - refactor ; put the api call in the /api/item.ts
     mutationFn: (item: InventoryItem) => {
       return api.patch(`/api/items/${item.id}/`, {
         low_stock: !item.low_stock,

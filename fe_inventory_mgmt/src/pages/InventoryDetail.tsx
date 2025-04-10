@@ -26,6 +26,7 @@ const InventoryDetail: React.FC = () => {
   });
 
   const deleteItem = useMutation({
+    // TODO - refactor ; put the api call in the /api/item.ts
     mutationFn: (item: InventoryItem) => {
       return api.delete(`/api/items/${item.id}/`);
     },

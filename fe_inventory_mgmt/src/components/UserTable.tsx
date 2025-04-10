@@ -66,14 +66,15 @@ interface UserTableRowProps {
 const UserTableRow: React.FC<UserTableRowProps> = ({ user }) => {
   const queryClient = useQueryClient();
 
+  // TODO: refactor - put in users.ts
   const editUserMutation = useMutation({
     mutationFn: (newUserRole: string) => {
       return api.patch(`/api/users/${user.id}/`, { role: newUserRole });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      // edge case - log the user out if they make changes to their own user
-      // TODO - in useAuth - change the way users are retrieved; use the react-query getUsers - so that everything is in sync
+      // TODO: Bug - edge case - log the user out if they make changes to their own user
+      // TODO: refactor - in useAuth - change the way users are retrieved; use the react-query getUsers - so that everything is in sync
     },
   });
 

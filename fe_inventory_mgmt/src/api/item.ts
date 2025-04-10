@@ -12,6 +12,29 @@ export const getItemDetails = async (id: string): Promise<InventoryItem> => {
   return inventoryItem;
 };
 
+export const addInventoryItem = async ({
+  name,
+  description,
+  sku,
+  category,
+  quantity,
+  price,
+}: Partial<InventoryItem>): Promise<InventoryItem> => {
+  const response = await api.post(`/api/items/`, {
+    name,
+    description,
+    sku,
+    category,
+    quantity,
+    price,
+  });
+  if (response.status !== 201) {
+    throw new Error("Failed to create user");
+  }
+
+  return await response.data;
+};
+
 export const getItemHistory = async (
   id: string
 ): Promise<InventoryItemHistory[]> => {

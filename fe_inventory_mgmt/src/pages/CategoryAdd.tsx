@@ -26,9 +26,8 @@ const CategoryAdd: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<{ name: string; description: string }>();
   const onSubmit = (data: { name: string; description: string }) => {
-    console.log("jm: data ", data);
     addItem.mutate(data);
   };
 

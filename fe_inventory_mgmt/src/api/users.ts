@@ -6,3 +6,10 @@ export const getUsers = async (): Promise<User[]> => {
 
   return await response.data;
 };
+
+export const patchUser = async (user: {
+  userId: string;
+  newUserRole: string;
+}): Promise<User> => {
+  return api.patch(`/api/users/${user.userId}/`, { role: user.newUserRole });
+};

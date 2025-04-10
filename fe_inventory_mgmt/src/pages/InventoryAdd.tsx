@@ -8,9 +8,8 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { getCategories } from "../api/category";
-import { InventoryItem } from "../types/inventory";
-import api from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { addInventoryItem } from "../api/item";
 
 const InventoryAdd: React.FC = () => {
   const { user } = useAuth();
@@ -23,9 +22,15 @@ const InventoryAdd: React.FC = () => {
   });
 
   const addItem = useMutation({
-    mutationFn: (item: { item: InventoryItem }) => {
-      console.log("jm: item ", item);
-      return api.post(`/api/items/`, { ...item });
+    mutationFn: (data: {
+      name: string;
+      description: string;
+      sku: string;
+      category: string;
+      quantity: number;
+      price: string;
+    }) => {
+      return addInventoryItem(data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["inventoryItems"] });
@@ -38,9 +43,22 @@ const InventoryAdd: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    console.log("jm: data ", data);
+  } = useForm<{
+    name: string;
+    description: string;
+    sku: string;
+    category: string;
+    quantity: number;
+    price: string;
+  }>();
+  const onSubmit = (data: {
+    name: string;
+    description: string;
+    sku: string;
+    category: string;
+    quantity: number;
+    price: string;
+  }) => {
     addItem.mutate(data);
   };
 

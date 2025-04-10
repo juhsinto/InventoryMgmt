@@ -107,11 +107,13 @@ This project was created as part of a Code assignment for an interview round. Th
 
 <!-- DESIGN CHOICES -->
 
-## Design Choices [TODO]
+## Design Choices / Approach [TODO]
 
 - For the front-end i decided to use a normal react project, since I didn't need SSR (mostly the app consists of client side components.)
 - I chose React built with Vite (CRA is now obsolete) + Typescript + Tailwind. I chose tailwind, out of familiarity. I could have also used Shadcn for UI components, to make it more accessible.
 - I used BrowserRouter and created an AuthProvider to ensure that the user is authenticated while browsing, and ensure that users are able to see components only which they are supposed to (role based)
+- for the UI forms, i used react-hook-form, something i've used in the past - good for FE validation
+- for querying data from the apis - I used @tan-stack/react-query
 - I chose Django over FastAPI because Django seemed to have more "batteries included".
 - I initially created some Proof of Concepts iterating on - user sign up (using email verification & forgot password flow). I chose not to integrate that since I was having trouble with deploying the backend.
 
@@ -162,22 +164,16 @@ This is an example of how to list things you need to use the software and how to
 - [ ] Deploy to cloud
 - [ ] Bulk Update Inventory via csv upload
 - [ x ] Inventory Visualize Stock History
+- [ ] Tanstack/query - optimize caching
+- [ ] Toast Success/Error messages
+- [ ] Complete all the TODO: bug / TODO: refactor
+- [ ] Automated e2e FE testing with cypress
 
 See the [open issues](https://github.com/juhsinto/InventoryMgmt/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ROADMAP -->
-
-## Approach [TODO]
-
-- [ ] Deploy to cloud
-- [ ] Bulk Update Inventory via csv upload
-- [ x ] Inventory Visualize Stock History
-
-See the [open issues](https://github.com/juhsinto/InventoryMgmt/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- Performance -->
 
 ## Performance [TODO]
 
@@ -208,7 +204,7 @@ Project Link: [https://github.com/juhsinto/InventoryMgmt](https://github.com/juh
 
 <!-- ACKNOWLEDGMENTS -->
 
-## Acknowledgments
+## Acknowledgments [TODO]
 
 - A good bunch of youtube videos
 - [Gemini](https://gemini.google.com/?hl=en-AU)
