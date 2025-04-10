@@ -111,6 +111,7 @@ This project was created as part of a Code assignment for an interview round. Th
 
 - For the front-end i decided to use a normal react project, since I didn't need SSR (mostly the app consists of client side components.)
 - I chose React built with Vite (CRA is now obsolete) + Typescript + Tailwind. I chose tailwind, out of familiarity. I could have also used Shadcn for UI components, to make it more accessible.
+- I used BrowserRouter and created an AuthProvider to ensure that the user is authenticated while browsing, and ensure that users are able to see components only which they are supposed to (role based)
 - I chose Django over FastAPI because Django seemed to have more "batteries included".
 - I initially created some Proof of Concepts iterating on - user sign up (using email verification & forgot password flow). I chose not to integrate that since I was having trouble with deploying the backend.
 

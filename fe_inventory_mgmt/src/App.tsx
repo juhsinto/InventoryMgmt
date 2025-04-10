@@ -14,6 +14,7 @@ import UserManagement from "./pages/UserManagement";
 import SignUp from "./pages/SignUp";
 import InventoryDash from "./pages/InventoryDash";
 import InventoryAdd from "./pages/InventoryAdd";
+import CategoryAdd from "./pages/CategoryAdd";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/inventory" element={<InventoryDash />} />
             <Route path="/inventory_add" element={<InventoryAdd />} />
+            <Route path="/category_add" element={<CategoryAdd />} />
             <Route path="/inventory/:id" element={<InventoryDetail />} />
             <Route path="/user_management" element={<UserManagement />} />
           </Route>

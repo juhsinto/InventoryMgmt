@@ -6,3 +6,18 @@ export const getCategories = async (): Promise<InventoryItemCategory[]> => {
 
   return await response.data;
 };
+
+export const addCategory = async ({
+  name,
+  description,
+}: Partial<InventoryItemCategory>): Promise<InventoryItemCategory> => {
+  const response = await api.post("/api/categories/", {
+    name,
+    description,
+  });
+  if (response.status !== 201) {
+    throw new Error("Failed to create user");
+  }
+
+  return await response.data;
+};
