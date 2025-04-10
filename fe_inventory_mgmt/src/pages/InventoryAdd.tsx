@@ -64,10 +64,15 @@ const InventoryAdd: React.FC = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="name"
             type="text"
+            maxLength={100}
             placeholder="Enter product name"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && <p className="text-red-500 text-xs italic">error</p>}
+          {errors.name && (
+            <p className="text-red-500 text-xs italic">
+              {errors.name.message?.toString()}
+            </p>
+          )}
         </div>
 
         <div className="mb-4">
@@ -84,7 +89,11 @@ const InventoryAdd: React.FC = () => {
             placeholder="Enter SKU"
             {...register("sku", { required: "SKU is required" })}
           />
-          {errors.sku && <p className="text-red-500 text-xs italic">error</p>}
+          {errors.sku && (
+            <p className="text-red-500 text-xs italic">
+              {errors.sku.message?.toString()}
+            </p>
+          )}
         </div>
 
         <div className="mb-4">
@@ -97,18 +106,15 @@ const InventoryAdd: React.FC = () => {
           <textarea
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="description"
-            placeholder="Enter description (max 100 characters)"
-            {...register("description", {
-              required: "Description is required",
-              maxLength: {
-                value: 100,
-                message: "Description must be no more than 100 characters",
-              },
-            })}
+            maxLength={200}
+            placeholder="Enter description (max 200 characters)"
+            {...register("description")}
           />
           {errors.description && (
             <p className="text-red-500 text-xs italic">
-              <p className="text-red-500 text-xs italic">error</p>
+              <p className="text-red-500 text-xs italic">
+                {errors.description.message?.toString()}
+              </p>
             </p>
           )}
         </div>
@@ -134,7 +140,9 @@ const InventoryAdd: React.FC = () => {
           </select>
           {errors.category && (
             <p className="text-red-500 text-xs italic">
-              <p className="text-red-500 text-xs italic">error</p>
+              <p className="text-red-500 text-xs italic">
+                {errors.category.message?.toString()}
+              </p>
             </p>
           )}
         </div>
@@ -151,16 +159,8 @@ const InventoryAdd: React.FC = () => {
             id="quantity"
             type="number"
             placeholder="Enter quantity"
-            {...register("quantity", {
-              required: "Quantity is required",
-              valueAsNumber: true,
-            })}
+            {...register("quantity")}
           />
-          {errors.quantity && (
-            <p className="text-red-500 text-xs italic">
-              <p className="text-red-500 text-xs italic">error</p>
-            </p>
-          )}
         </div>
 
         <div className="mb-4">
@@ -173,10 +173,20 @@ const InventoryAdd: React.FC = () => {
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="price"
-            type="text"
-            placeholder="Enter price"
-            {...register("price")}
+            type="number"
+            placeholder="Enter Price"
+            {...register("price", {
+              required: "Price is required",
+              valueAsNumber: true,
+            })}
           />
+          {errors.price && (
+            <p className="text-red-500 text-xs italic">
+              <p className="text-red-500 text-xs italic">
+                {errors.price.message?.toString()}
+              </p>
+            </p>
+          )}
         </div>
 
         <div className="flex items-center justify-between">
