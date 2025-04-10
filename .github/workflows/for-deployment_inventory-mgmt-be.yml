@@ -38,7 +38,7 @@ jobs:
 
       - name: Collect static files
         run: |
-          cd BE
+          cd BE/backend/
           python manage.py collectstatic --noinput
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
