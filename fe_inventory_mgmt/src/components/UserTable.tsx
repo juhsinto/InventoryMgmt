@@ -1,7 +1,12 @@
-import { ChangeEvent, useState } from "react";
-import { User, UserRole } from "../types/user";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { ChangeEvent } from "react";
+import { User } from "../types/user";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { getUsers } from "../api/users";
+import api from "../api/api";
 
 const UserTable: React.FC = () => {
   const { data } = useSuspenseQuery({
@@ -59,13 +64,23 @@ interface UserTableRowProps {
 }
 
 const UserTableRow: React.FC<UserTableRowProps> = ({ user }) => {
-  const [role, setRole] = useState<UserRole>(user.role);
+  const queryClient = useQueryClient();
+
+  // TODO: refactor - put in users.ts
+  const editUserMutation = useMutation({
+    mutationFn: (newUserRole: string) => {
+      return api.patch(`/api/users/${user.id}/`, { role: newUserRole });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      // TODO: Bug - edge case - log the user out if they make changes to their own user
+      // TODO: refactor - in useAuth - change the way users are retrieved; use the react-query getUsers - so that everything is in sync
+    },
+  });
 
   const handleRoleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newRole = event.target.value;
-    console.log("jm: new role     ", newRole);
-    setRole(newRole as UserRole);
-    // onRoleChange(user.id, newRole); // Notify the parent component of the change
+    editUserMutation.mutate(newRole);
   };
 
   return (
@@ -81,7 +96,7 @@ const UserTableRow: React.FC<UserTableRowProps> = ({ user }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
         <select
-          value={role}
+          value={user.role}
           onChange={handleRoleSelectChange}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
         >

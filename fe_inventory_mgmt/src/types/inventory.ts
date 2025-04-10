@@ -5,7 +5,7 @@ export interface InventoryItem {
   description: string;
   quantity: number;
   price: string;
-  category_id: number;
+  category: string;
   category_name: string;
   low_stock: string;
   imageUrl?: string;

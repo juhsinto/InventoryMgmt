@@ -2,9 +2,14 @@ import { User } from "../types/user";
 import api from "./api";
 
 export const getUsers = async (): Promise<User[]> => {
-  // delay to simulate loading
-  await new Promise((resolve) => setTimeout(resolve, 500));
   const response = await api.get("/api/users/");
 
   return await response.data;
+};
+
+export const patchUser = async (user: {
+  userId: string;
+  newUserRole: string;
+}): Promise<User> => {
+  return api.patch(`/api/users/${user.userId}/`, { role: user.newUserRole });
 };
