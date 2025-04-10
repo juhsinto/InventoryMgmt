@@ -103,6 +103,7 @@ DATABASES = {
         'PASSWORD': env["PASSWORD"],
         'HOST': env["HOST"],
         'PORT': env["PORT"],
+        'OPTIONS': {'sslmode': 'require'}
     }
 }
 
