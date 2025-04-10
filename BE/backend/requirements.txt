@@ -12,4 +12,4 @@ PyJWT==2.9.0
 python-dotenv==1.1.0
 pytz==2025.2
 sqlparse==0.5.3
-whitenoise==6.9.0
+whitenoise==6.9.0 
