@@ -8,7 +8,7 @@ import RoleBasedComponent from "../components/RoleBasedComponent";
 import InventoryOverview from "../components/Inventory/InventoryOverview";
 
 const InventoryDash: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <Layout
@@ -19,9 +19,6 @@ const InventoryDash: React.FC = () => {
         <h2 className="text-xl font-semibold text-gray-800">
           Current Inventory
         </h2>
-        <Button variant="secondary" onClick={logout}>
-          Sign Out
-        </Button>
       </div>
 
       <Section title="Inventory Overview">
@@ -36,15 +33,27 @@ const InventoryDash: React.FC = () => {
                 <Button>Manage Users</Button>
               </Link>
 
-              {/* TODO: ADD NEW ITEM */}
               <Link to="/inventory_add/">
                 <Button className="text-white px-4 py-2">Add New Item</Button>
               </Link>
 
-              <Link to="/bulk_update/">
-                <Button className="text-white px-4 py-2">Bulk Update</Button>
+              <Link to="/category_add/">
+                <Button className="text-white px-4 py-2">
+                  Add New Category
+                </Button>
               </Link>
             </div>
+          </div>
+        </Section>
+      </RoleBasedComponent>
+
+      <RoleBasedComponent allowedRoles={["manager"]}>
+        <Section title="Admin only actions">
+          <div className="mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2"></div>
+            <Link to="/bulk_update/">
+              <Button className="text-white px-4 py-2">Bulk Update</Button>
+            </Link>
           </div>
         </Section>
       </RoleBasedComponent>

@@ -55,6 +55,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#design-choices">Built With</a></li>
       </ul>
     </li>
     <li>
@@ -101,6 +102,17 @@ This project was created as part of a Code assignment for an interview round. Th
 
 - ![React][React.js]
 - ![DjangoREST][DjangoREST]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- DESIGN CHOICES -->
+
+## Design Choices [TODO]
+
+- For the front-end i decided to use a normal react project, since I didn't need SSR (mostly the app consists of client side components.)
+- I chose React built with Vite (CRA is now obsolete) + Typescript + Tailwind. I chose tailwind, out of familiarity. I could have also used Shadcn for UI components, to make it more accessible.
+- I chose Django over FastAPI because Django seemed to have more "batteries included".
+- I initially created some Proof of Concepts iterating on - user sign up (using email verification & forgot password flow). I chose not to integrate that since I was having trouble with deploying the backend.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -216,8 +228,6 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
