@@ -99,3 +99,6 @@ docker tag mvp-django <region>/<project>/mvp/mvp-django:latest
 docker push <region>/<project>/mvp/mvp-django:latest
 
 gcloud run
+
+run tests:
+coverage run --source='.' manage.py test api.tests -v 2
