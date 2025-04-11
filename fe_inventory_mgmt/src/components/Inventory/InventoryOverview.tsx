@@ -145,7 +145,7 @@ const InventoryOverview: React.FC = () => {
                 : "bg-green-100 text-green-800"
             }`}
                 >
-                  {item.low_stock.toString()}
+                  {item.low_stock ? "Yes" : "No"}
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">

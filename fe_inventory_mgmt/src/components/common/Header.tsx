@@ -16,9 +16,11 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle, className = "" }) => {
       {subtitle && <p className="mt-2 text-white">{subtitle}</p>}
 
       <div className="flex justify-between items-start">
-        <Link to="/inventory">
-          <p className="pt-3 text-white underline">Dashboard</p>
-        </Link>
+        {isAuthenticated && (
+          <Link to="/inventory">
+            <p className="pt-3 text-white underline">Dashboard</p>
+          </Link>
+        )}
 
         {isAuthenticated && (
           <p

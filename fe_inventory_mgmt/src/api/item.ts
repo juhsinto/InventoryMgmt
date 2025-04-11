@@ -72,10 +72,8 @@ export const getItemHistory = async (
 };
 
 export const patchItem = async (id: number, data: Partial<InventoryItem>) => {
-  console.log("id ", id);
-  console.log("data ", data);
   const response = await api.patch(`/api/items/${id}/`, { ...data });
-  console.log("jm: resp ", response);
+
   if (response.status !== 200) {
     throw new Error("Failed to patch item");
   }
