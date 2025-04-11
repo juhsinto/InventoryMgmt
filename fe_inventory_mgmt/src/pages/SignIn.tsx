@@ -76,9 +76,6 @@ const SignIn: React.FC = () => {
             />
           </div>
 
-          {isAuthenticated && (
-            <p className="text-black">BTW - You are already signed in</p>
-          )}
           <div>
             <Button
               type="submit"

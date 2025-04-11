@@ -4,7 +4,7 @@ export interface InventoryItem {
   name: string;
   description: string;
   quantity: number;
-  price: string;
+  price: number;
   category: string;
   category_name: string;
   low_stock: string;

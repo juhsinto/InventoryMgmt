@@ -29,11 +29,35 @@ export const addInventoryItem = async ({
     price,
   });
   if (response.status !== 201) {
-    throw new Error("Failed to create user");
+    throw new Error("Failed to create item");
   }
 
   return await response.data;
 };
+
+// export const updateInventoryItem = async ({
+//   name,
+//   description,
+//   sku,
+//   category,
+//   quantity,
+//   price,
+//   id
+// }: Partial<InventoryItem>) => {
+//   const response = await api.patch(`/api/items/${id}/`, {
+//     name,
+//     description,
+//     sku,
+//     category,
+//     quantity,
+//     price,
+//   });
+//   if (response.status !== 201) {
+//     throw new Error("Failed to update item");
+//   }
+
+//   return await response.data;
+// };
 
 export const getItemHistory = async (
   id: string
@@ -48,7 +72,10 @@ export const getItemHistory = async (
 };
 
 export const patchItem = async (id: number, data: Partial<InventoryItem>) => {
+  console.log("id ", id);
+  console.log("data ", data);
   const response = await api.patch(`/api/items/${id}/`, { ...data });
+  console.log("jm: resp ", response);
   if (response.status !== 200) {
     throw new Error("Failed to patch item");
   }
